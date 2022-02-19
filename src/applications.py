@@ -1,5 +1,6 @@
 import pygame, sys
 from .objs.car import Car
+from .objs.camera import Camera
 from .settings.options import *
 
 def main():
@@ -12,11 +13,11 @@ def main():
     background = pygame.image.load("./src/imgs/background.png")
 
     #create the sprites and groups
-    moving_sprites = pygame.sprite.Group()
+    camera_group = Camera(screen, background)
 
     #create one car
     car1 = Car(100,100)
-    moving_sprites.add(car1)
+    camera_group.add(car1)
 
     while True:
         delta = clock.tick(60)
@@ -41,7 +42,6 @@ def main():
                     car1.angle_change = 0
 
         screen.fill((0,0,0))
-        screen.blit(background, (0,0))
-        moving_sprites.update()
-        moving_sprites.draw(screen)
+        camera_group.update()
+        camera_group.camera_draw(car1)
         pygame.display.update()
