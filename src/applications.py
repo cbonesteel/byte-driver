@@ -20,7 +20,7 @@ def main():
     camera_group.add(car1)
 
     while True:
-        delta = clock.tick(60)
+        delta = clock.tick(20)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
