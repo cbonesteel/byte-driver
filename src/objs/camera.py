@@ -1,5 +1,4 @@
 import pygame
-import pygments
 from ..settings.options import WINDOW_HEIGHT, WINDOW_WIDTH
 from pygame.math import Vector2
 
