@@ -37,6 +37,7 @@ def main():
                     elif event.key == pygame.K_LEFT and car1.angle_change < 0:
                         car1.angle_change = 0
 
+        screen.fill((0,0,0))
         moving_sprites.update()
         moving_sprites.draw(screen)
         pygame.display.update()
