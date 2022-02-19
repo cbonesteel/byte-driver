@@ -9,7 +9,7 @@ class Car(pygame.sprite.Sprite):
         self.anim = 0
 
         #load in spritesheet
-        self.car_ss = SpriteSheet("src/imgs/new_car.png")
+        self.car_ss = SpriteSheet("./imgs/new_car.png")
         self.sprites = []
 
         #load in all the sprites

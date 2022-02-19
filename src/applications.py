@@ -10,7 +10,7 @@ def main():
     clock = pygame.time.Clock()
 
     #background
-    background = pygame.image.load("./src/imgs/background.png")
+    background = pygame.image.load("./imgs/background.png")
 
     #create the sprites and groups
     camera_group = Camera(screen, background)
