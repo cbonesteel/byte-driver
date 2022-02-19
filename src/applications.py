@@ -32,8 +32,6 @@ def main():
                     car1.angle_change = 3
                 elif event.key == pygame.K_UP:
                     car1.accel = True
-                elif event.key == pygame.K_DOWN:
-                    car1.accel = False
             elif event.type == pygame.KEYUP:
                 # Stop rotating if the player releases the keys.
                 if event.key == pygame.K_RIGHT and car1.angle_change > 0:
@@ -42,8 +40,6 @@ def main():
                     car1.angle_change = 0
                 elif event.key == pygame.K_UP:
                     car1.accel = False
-                elif event.key == pygame.K_DOWN:
-                    car1.accel = True
 
         screen.fill((255,255,255))
         moving_sprites.update()

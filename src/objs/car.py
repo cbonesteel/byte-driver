@@ -38,6 +38,7 @@ class Car(pygame.sprite.Sprite):
         self.direction = Vector2(0,1) # downward vector bc thats how the sprite spawns
         self.speed=0
         self.accel =False
+        self.maxSpeed = 5
     def update(self):
         if self.angle_change != 0 and self.speed > 0:
             self.direction.rotate_ip(self.angle_change)
@@ -48,8 +49,8 @@ class Car(pygame.sprite.Sprite):
         if(self.accel == True):
             #increase the speed
             self.speed +=0.25
-            if(self.speed > 4):
-                self.speed = 4
+            if(self.speed > self.maxSpeed):
+                self.speed = self.maxSpeed
         else:
             #decrease the speed
             self.speed -=0.25
