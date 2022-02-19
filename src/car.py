@@ -1,4 +1,5 @@
 import pygame
+from pygame.math import Vector2
 
 class SpriteSheet:
     def __init__(self, filename):
@@ -54,12 +55,21 @@ class Car(pygame.sprite.Sprite):
         self.og_img = self.image
         self.angle_change = 0
         self.angle = 0
+
+        #position and direction & speed
+        self.position = Vector2(pos_x, pos_y)
+        self.direction = Vector2(0,1) # downward vector bc thats how the sprite spawns
+        self.speed=2
     def update(self):
         if self.angle_change != 0:
+            self.direction.rotate_ip(self.angle_change)
             self.angle += self.angle_change
             # I prefer rotozoom because it looks smoother.
-            self.image = pygame.transform.rotozoom(self.og_img, self.angle, 1)
+            self.image = pygame.transform.rotozoom(self.og_img, -self.angle, 1)
             self.rect = self.image.get_rect(center=self.rect.center)
+        #update the positon vector and the rect
+        self.position += self.direction * self.speed
+        self.rect.center = self.position
     """
     def move
     def rotate
