@@ -1,5 +1,5 @@
 import pygame, sys
-from .car import Car
+from .objs.car import Car
 from .settings.options import *
 
 def main():
@@ -10,6 +10,8 @@ def main():
 
     #create the sprites and groups
     moving_sprites = pygame.sprite.Group()
+
+    #create one car
     car1 = Car(100,100)
     moving_sprites.add(car1)
 
@@ -25,14 +27,14 @@ def main():
                         pygame.quit()
                         sys.exit()
                     elif(event.key == pygame.K_LEFT):
-                        car1.angle_change = 3
-                    elif event.key == pygame.K_RIGHT:
                         car1.angle_change = -3
+                    elif event.key == pygame.K_RIGHT:
+                        car1.angle_change = 3
                 elif event.type == pygame.KEYUP:
                     # Stop rotating if the player releases the keys.
-                    if event.key == pygame.K_RIGHT and car1.angle_change < 0:
+                    if event.key == pygame.K_RIGHT and car1.angle_change > 0:
                         car1.angle_change = 0
-                    elif event.key == pygame.K_LEFT and car1.angle_change > 0:
+                    elif event.key == pygame.K_LEFT and car1.angle_change < 0:
                         car1.angle_change = 0
 
         moving_sprites.update()
