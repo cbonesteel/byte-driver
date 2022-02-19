@@ -47,12 +47,12 @@ class Car(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center=self.rect.center)
         if(self.accel == True):
             #increase the speed
-            self.speed +=1
+            self.speed +=0.25
             if(self.speed > 4):
                 self.speed = 4
         else:
             #decrease the speed
-            self.speed -=1
+            self.speed -=0.25
             if(self.speed < 0):
                 self.speed = 0
         #update the positon vector and the rect
