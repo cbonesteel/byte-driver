@@ -1,6 +1,6 @@
 # Byte Driver
 
-Made at UGAHacks7 :3
+Made at UGAHacks7
 
 ## Contributors
 * Wesley Baker
