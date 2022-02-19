@@ -50,7 +50,7 @@ class Car(pygame.sprite.Sprite):
         #accel bool
         if(self.accel == True):
             #increase the speed
-            self.speed +=50 * deltaTime
+            self.speed +=60 * deltaTime
             if(self.speed > self.maxSpeed):
                 self.speed = self.maxSpeed
         else:
