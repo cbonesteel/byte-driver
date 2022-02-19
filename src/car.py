@@ -49,6 +49,17 @@ class Car(pygame.sprite.Sprite):
         self.image = car_img
         self.rect = self.image.get_rect()
         self.rect.topleft = [pos_x, pos_y]
+
+        #rotating stuff
+        self.og_img = self.image
+        self.angle_change = 0
+        self.angle = 0
+    def update(self):
+        if self.angle_change != 0:
+            self.angle += self.angle_change
+            # I prefer rotozoom because it looks smoother.
+            self.image = pygame.transform.rotozoom(self.og_img, self.angle, 1)
+            self.rect = self.image.get_rect(center=self.rect.center)
     """
     def move
     def rotate
