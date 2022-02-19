@@ -12,7 +12,7 @@ def main():
     moving_sprites = pygame.sprite.Group()
 
     #create one car
-    car1 = Car(100,100)
+    car1 = Car(100,100,10)
     moving_sprites.add(car1)
 
     while True:
