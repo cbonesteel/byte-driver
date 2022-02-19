@@ -8,6 +8,9 @@ def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
 
+    #background
+    background = pygame.image.load("./src/imgs/background.png")
+
     #create the sprites and groups
     moving_sprites = pygame.sprite.Group()
 
@@ -38,6 +41,7 @@ def main():
                         car1.angle_change = 0
 
         screen.fill((0,0,0))
+        screen.blit(background, (0,0))
         moving_sprites.update()
         moving_sprites.draw(screen)
         pygame.display.update()
