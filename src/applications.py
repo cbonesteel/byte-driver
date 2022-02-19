@@ -16,7 +16,7 @@ def main():
     camera_group = Camera(screen, background)
 
     #create one car
-    car1 = Car(100,100,10)
+    car1 = Car(100,100,0)
     camera_group.add(car1)
 
     while True:

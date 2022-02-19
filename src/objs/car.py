@@ -9,19 +9,18 @@ class Car(pygame.sprite.Sprite):
         self.anim = 0
 
         #load in spritesheet
-        self.car_ss = SpriteSheet("src/imgs/f1_sprites_trans.png")
+        self.car_ss = SpriteSheet("src/imgs/new_car.png")
         self.sprites = []
 
         #load in all the sprites
         for x in range(4): # 4 bc there are 4 rows of sprites
-            car_rect = (150,90,70,125)
-            if(x!=0):
-                v_offset = 25
-                car_rect = (car_rect[0],(car_rect[1]+car_rect[3]+v_offset)*x,car_rect[2],car_rect[3])
-            self.sprites += self.car_ss.load_strip(car_rect,6, 17)
+            car_rect = (0,0,16,32)
+            self.sprites += self.car_ss.load_strip(car_rect,2)
 
         #create the Car
         car_img = self.sprites[color]
+        scale = 3
+        car_img = pygame.transform.scale(car_img, (car_img.get_size()[0] * scale, car_img.get_size()[1] * scale))
 
         #add the car as the img
         self.image = car_img
@@ -60,7 +59,7 @@ class Car(pygame.sprite.Sprite):
                 self.speed = 0
         #brake bool
         if(self.brake):
-            self.speed -= 80 * deltaTime
+            self.speed -= 100 * deltaTime
             if(self.speed < 0):
                 self.speed = 0
         #update the positon vector and the rect
