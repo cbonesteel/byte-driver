@@ -36,14 +36,25 @@ class Car(pygame.sprite.Sprite):
         #position and direction & speed
         self.position = Vector2(pos_x, pos_y)
         self.direction = Vector2(0,1) # downward vector bc thats how the sprite spawns
-        self.speed=2
+        self.speed=0
+        self.accel =False
     def update(self):
-        if self.angle_change != 0:
+        if self.angle_change != 0 and self.speed > 0:
             self.direction.rotate_ip(self.angle_change)
             self.angle += self.angle_change
             # I prefer rotozoom because it looks smoother.
             self.image = pygame.transform.rotozoom(self.og_img, -self.angle, 1)
             self.rect = self.image.get_rect(center=self.rect.center)
+        if(self.accel == True):
+            #increase the speed
+            self.speed +=1
+            if(self.speed > 4):
+                self.speed = 4
+        else:
+            #decrease the speed
+            self.speed -=1
+            if(self.speed < 0):
+                self.speed = 0
         #update the positon vector and the rect
         self.position += self.direction * self.speed
         self.rect.center = self.position

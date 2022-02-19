@@ -19,25 +19,33 @@ def main():
         delta = clock.tick(60)
 
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                    elif(event.key == pygame.K_LEFT):
-                        car1.angle_change = -3
-                    elif event.key == pygame.K_RIGHT:
-                        car1.angle_change = 3
-                elif event.type == pygame.KEYUP:
-                    # Stop rotating if the player releases the keys.
-                    if event.key == pygame.K_RIGHT and car1.angle_change > 0:
-                        car1.angle_change = 0
-                    elif event.key == pygame.K_LEFT and car1.angle_change < 0:
-                        car1.angle_change = 0
+                elif(event.key == pygame.K_LEFT):
+                    car1.angle_change = -3
+                elif event.key == pygame.K_RIGHT:
+                    car1.angle_change = 3
+                elif event.key == pygame.K_UP:
+                    car1.accel = True
+                elif event.key == pygame.K_DOWN:
+                    car1.accel = False
+            elif event.type == pygame.KEYUP:
+                # Stop rotating if the player releases the keys.
+                if event.key == pygame.K_RIGHT and car1.angle_change > 0:
+                    car1.angle_change = 0
+                elif event.key == pygame.K_LEFT and car1.angle_change < 0:
+                    car1.angle_change = 0
+                elif event.key == pygame.K_UP:
+                    car1.accel = False
+                elif event.key == pygame.K_DOWN:
+                    car1.accel = True
 
-        screen.fill((0,0,0))
+        screen.fill((255,255,255))
         moving_sprites.update()
         moving_sprites.draw(screen)
         pygame.display.update()
