@@ -2,6 +2,7 @@ import pygame, sys
 from .objs.car import Car
 from .objs.camera import Camera
 from .settings.options import *
+from .objs.BitMap import BitMap
 
 def main():
     pygame.init()
@@ -10,7 +11,9 @@ def main():
     clock = pygame.time.Clock()
 
     #background
-    background = pygame.image.load("./imgs/background.png")
+    bitmap = BitMap(6,2)
+    background = bitmap.getfinalimage()
+    #background = pygame.image.load("./src/imgs/background.png")
 
     #create the sprites and groups
     camera_group = Camera(screen, background)
