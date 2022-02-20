@@ -7,6 +7,8 @@ from .utils.events import *
 from .utils.menu_state import *
 from .utils.game_state import *
 from .utils.track_select import *
+from .objs.game_object import GameObject
+from pygame.math import Vector2
 
 def parseConfig(path):
     starting_pos=[]
@@ -32,6 +34,7 @@ def main():
     menu_state = MenuState.NONE
     game_state = GameState.RUNNING
     selected_track = TrackSelect.AUSTRIA
+    checkpoints = []
 
     while True:
         delta = clock.tick(20)
@@ -89,29 +92,38 @@ def main():
         #--- GAME LOGIC ---#
         if game_state == GameState.RUNNING:
             starting_pos = []
-            checkpoints = []
+            checkpoint_rect = []
             angle = 0
             if game_init == False:
                 if selected_track == TrackSelect.AUSTRIA:
                     bitmap = BitMap(32,26,"bitmaps/austria.csv",GLOBALSCALE)
                     background = bitmap.getfinalimage()
 
-                    angle,starting_pos, checkpoints = parseConfig("bitmaps/austria.cfg")
+                    angle,starting_pos, checkpoint_rect = parseConfig("bitmaps/austria.cfg")
 
                 elif selected_track == TrackSelect.SUGNOMA:
                     bitmap = BitMap(24,30,"bitmaps/sugnoma.csv",GLOBALSCALE)
                     background = bitmap.getfinalimage()
 
-                    angle,starting_pos, checkpoints = parseConfig("bitmaps/sugnoma.cfg")
+                    angle,starting_pos, checkpoint_rect = parseConfig("bitmaps/sugnoma.cfg")
                 
                 #create the sprites and groups
                 camera_group = Camera(screen, background)
 
+                for c in checkpoint_rect:
+                    left, top = c[0], c[1]
+                    width, height = c[2] - c[0], c[3] - c[1]
+                    print(f"{left} {top} {width} {height}")
+                    obj = GameObject(Vector2(left + width / 2, top + height / 2), dimensions=Vector2(width, height), color=(255,0,0,255), scale=GLOBALSCALE)
+                    print(obj.rect)
+                    checkpoints.append(obj)
+
+                checkpoint_group = pygame.sprite.Group(checkpoints)
 
                 #create cars
                 cars = []
                 for x in starting_pos:
-                    car = Car(x[0] * GLOBALSCALE, x[1] * GLOBALSCALE, angle=angle, globScale=GLOBALSCALE)
+                    car = Car(x[0] * GLOBALSCALE, x[1] * GLOBALSCALE, angle=angle+90, globScale=GLOBALSCALE)
                     cars.append(car)
                 camera_group.add(cars)
 
@@ -122,6 +134,13 @@ def main():
                 car.speed=-100
                 car.accel=True
                 car.brake=False
+            for ch in range(len(checkpoints)):
+                if car.is_colliding([checkpoints[ch]]):
+                    if car.checkpoint == ch - 1:
+                        print("checkpoint got!")
+                        if ch == len(checkpoints) - 1:
+                            ch = 0
+                        car.checkpoint = ch
             #current Car tile
             currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
             if(currTile >= 1 and currTile <= 9 ):
@@ -136,7 +155,9 @@ def main():
         #screen.fill((0,0,0))
         if game_state == GameState.RUNNING:
             camera_group.update(delta/1000)
+            screen.fill((0, 255, 0))
             camera_group.camera_draw(cars[0])
+            checkpoint_group.draw(screen)
         pygame.display.update()
 
 def draw_main(screen):
