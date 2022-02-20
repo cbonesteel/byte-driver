@@ -11,7 +11,7 @@ def main():
     clock = pygame.time.Clock()
 
     #background
-    bitmap = BitMap(3,5)
+    bitmap = BitMap(24,18)
     background = bitmap.getfinalimage()
     #background = pygame.image.load("./src/imgs/background.png")
 

@@ -1,4 +1,6 @@
 import pygame
+import csv
+import numpy as np
 from ..utils.spritesheet import SpriteSheet
 from .game_object import GameObject
 from pygame.math import Vector2
@@ -39,7 +41,7 @@ class BitMap:
         bottomrightturn_img = GameObject(Vector2(0,0), angle=0, scale=1, image=self.tiles[14])
 
         # set Map
-        self.map0()
+        self.load_map()
 
         #print(str(len(list(self.map[0]))) +" " + str(len(list(self.map))))
         for i in range(len(list(self.map))):
@@ -174,6 +176,10 @@ class BitMap:
                     [1, 10, 1],
                     [11,11,11],
                     [1,1,1]]
+
+    def load_map(self):
+        self.map = np.loadtxt(open("bitmaps/austria.csv"), delimiter=",")
+
 
     def getfinalimage(self):
         return self.final_img
