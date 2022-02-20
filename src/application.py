@@ -64,23 +64,23 @@ def main():
             if game_state == GameState.RUNNING:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        car1.angle_change = -5
+                        cars[0].angle_change = -5
                     elif event.key == pygame.K_RIGHT:
-                        car1.angle_change = 5
+                        cars[0].angle_change = 5
                     elif event.key == pygame.K_UP:
-                        car1.accel = True
+                        cars[0].accel = True
                     elif event.key == pygame.K_DOWN:
-                        car1.brake = True
+                        cars[0].brake = True
                 if event.type == pygame.KEYUP:
                     # Stop rotating if the player releases the keys.
-                    if event.key == pygame.K_RIGHT and car1.angle_change > 0:
-                        car1.angle_change = 0
-                    elif event.key == pygame.K_LEFT and car1.angle_change < 0:
-                        car1.angle_change = 0
+                    if event.key == pygame.K_RIGHT and cars[0].angle_change > 0:
+                        cars[0].angle_change = 0
+                    elif event.key == pygame.K_LEFT and cars[0].angle_change < 0:
+                        cars[0].angle_change = 0
                     elif event.key == pygame.K_UP:
-                        car1.accel = False
+                        cars[0].accel = False
                     elif event.key == pygame.K_DOWN:
-                        car1.brake = False
+                        cars[0].brake = False
 
         #--- MENU LOGIC ---#
         if menu_state == MenuState.MAIN_MENU:
@@ -108,31 +108,35 @@ def main():
                 camera_group = Camera(screen, background)
 
 
-                #create one car
-                #car1 = Car(stats[0],stats[1],0, GLOBALSCALE)
-                car1 = Car(500*GLOBALSCALE,500*GLOBALSCALE,0, GLOBALSCALE)
-                camera_group.add(car1)
+                #create cars
+                cars = []
+                for x in starting_pos:
+                    car = Car(x[0] * GLOBALSCALE, x[1] * GLOBALSCALE, angle=angle, globScale=GLOBALSCALE)
+                    cars.append(car)
+                camera_group.add(cars)
 
                 game_init = True
             
-        if(car1.is_colliding(bitmap.wallGroup)):
-            car1.speed=-100
-            car1.accel=True
-            car1.brake=False
-        #current Car tile
-        #print(car1.get_pos())
-        currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
-        if(currTile >= 1 and currTile <= 9 ):
-            #in sand/gas
-            car1.slowDown = True
-        else:
-            car1.slowDown = False
+        for car in cars:
+            if car.is_colliding(bitmap.wallGroup):
+                car.speed=-100
+                car.accel=True
+                car.brake=False
+            #current Car tile
+            currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
+            if(currTile >= 1 and currTile <= 9 ):
+                #in sand/gas
+                car.slowDown = True
+            else:
+                car.slowDown = False
+
+            
 
         # Screen Updating
         #screen.fill((0,0,0))
         if game_state == GameState.RUNNING:
             camera_group.update(delta/1000)
-            camera_group.camera_draw(car1)
+            camera_group.camera_draw(cars[0])
         pygame.display.update()
 
 def draw_main(screen):
