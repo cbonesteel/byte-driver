@@ -1,5 +1,7 @@
 import pygame
 from ..utils.spritesheet import SpriteSheet
+from .game_object import GameObject
+from pygame.math import Vector2
 
 class BitMap:
 
@@ -7,7 +9,6 @@ class BitMap:
         self.width, self.height = width, height
 
         self.map = [[0 for x in range(self.width)] for y in range(self.height)]
-
         self.final_img = pygame.Surface((self.width*80,self.height*80)).convert_alpha()
         #Spritesheet
         self.bitmap_ss = SpriteSheet("src/imgs/bitmap_prototype.png")
@@ -19,30 +20,38 @@ class BitMap:
                 tile_rect = ((tile_rect[0]),(tile_rect[1]+tile_rect[3])*x,tile_rect[2],tile_rect[3])
             self.tiles += self.bitmap_ss.load_strip(tile_rect, 6, 0)
 
-        blanktile_img = self.tiles[0]
-        grasstile_img = self.tiles[1]
-        rightwall_img = self.tiles[2]
-        vertroad_img = self.tiles[6]
+        blanktile_img = GameObject(Vector2(0,0), angle=0, scale=1, image=self.tiles[0])
+        grasstile_img = GameObject(Vector2(0,0), angle=0, scale=1, image=self.tiles[1])
+        rightwall_img = GameObject(Vector2(0,0), angle=0, scale=1, image=self.tiles[2])
+        vertroad_img = GameObject(Vector2(0,0), angle=0, scale=1, image=self.tiles[6])
+        horizontalroad_img = GameObject(Vector2(0,0), angle=90, scale=1, image=self.tiles[6])
 
         # set Map
         self.map0()
 
-        for i in range(len(list(self.map[0]))):
-            for j in range(len(list(self.map))):
+        print(str(len(list(self.map[0]))) +" " + str(len(list(self.map))))
+        for i in range(len(list(self.map))):
+            for j in range(len(list(self.map[i]))):
                 if self.map[i][j] == 1:
-                    self.final_img.blit(grasstile_img, (j*80, i*80))
+                    self.final_img.blit(grasstile_img.surface, (j*80, i*80))
                     #self.final_img.load(grasstile_img, i*80, j*80)
-                if self.map[i][j] == 6:
-                    self.final_img.blit(vertroad_img, (j*80, i*80))
+                if self.map[i][j] == 10:
+                    self.final_img.blit(vertroad_img.image, (j*80, i*80))
+                if self.map[i][j] == 11:
+                    self.final_img.blit(horizontalroad_img.image, (j*80, i*80))
+
+                    
 
 
     def get_at(self, index1, index2):
         return map[index1, index2]
 
     def map0(self):
-        self.map = [[1, 6, 1],
-                    [1, 6, 1],
-                    [1, 6, 1]]
+        self.map = [[1, 10, 1],
+                    [1, 10, 1],
+                    [1, 10, 1],
+                    [11,11,11],
+                    [1,1,1]]
 
     def getfinalimage(self):
         return self.final_img
