@@ -9,9 +9,10 @@ def main():
 
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
+    globalScale = 2
 
     #background
-    bitmap = BitMap(3,5)
+    bitmap = BitMap(3,5, globalScale)
     background = bitmap.getfinalimage()
     #background = pygame.image.load("./src/imgs/background.png")
 
@@ -19,7 +20,7 @@ def main():
     camera_group = Camera(screen, background)
 
     #create one car
-    car1 = Car(100,100,0)
+    car1 = Car(100,100,0, globalScale)
     camera_group.add(car1)
 
     while True:
