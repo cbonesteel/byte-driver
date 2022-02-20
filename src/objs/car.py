@@ -26,7 +26,7 @@ class Car(GameObject):
         self.maxSpeed = 300
         self.brake = False
 
-        super().__init__(Vector2(pos_x, pos_y), angle=0, scale=3, image=car_img)
+        super().__init__(Vector2(pos_x, pos_y), angle=0, scale=1, image=car_img)
 
     def animate(self, deltaTime):
         self.anim_timer += deltaTime
