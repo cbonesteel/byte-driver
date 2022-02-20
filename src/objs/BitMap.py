@@ -6,9 +6,10 @@ import math
 
 class BitMap:
 
-    def __init__(self, width, height, globScale=1):
+    def __init__(self, width, height, filename, globScale=1):
         self.width, self.height = width, height
         self.spriteWidth = 80 * globScale
+        self.filename = filename
 
         self.map = [[0 for x in range(self.width)] for y in range(self.height)]
         self.final_img = pygame.Surface((self.width*self.spriteWidth,self.height*self.spriteWidth)).convert_alpha()
@@ -177,7 +178,7 @@ class BitMap:
                     [1,1,1]]
 
     def load_map(self):
-        with open("bitmaps/austria.csv") as f:
+        with open(self.filename) as f:
             self.map = list(map(lambda l: list(map(int, l.split(","))), f.readlines()))
 
 
