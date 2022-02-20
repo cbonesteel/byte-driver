@@ -1,6 +1,3 @@
-from re import M
-from tkinter.tix import MAIN
-from turtle import back
 import pygame, sys
 from .objs.car import Car
 from .objs.camera import Camera
