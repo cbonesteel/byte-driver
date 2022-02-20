@@ -161,18 +161,18 @@ def main():
 
                 game_init = True
             
-        for car in cars:
-            if car.is_colliding(bitmap.wallGroup):
-                car.speed=-100
-                car.accel=True
-                car.brake=False
-            #current Car tile
-            currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
-            if(currTile >= 1 and currTile <= 9 ):
-                #in sand/gas
-                car.slowDown = True
-            else:
-                car.slowDown = False
+            for car in cars:
+                if car.is_colliding(bitmap.wallGroup):
+                    car.speed=-100
+                    car.accel=True
+                    car.brake=False
+                #current Car tile
+                currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
+                if(currTile >= 1 and currTile <= 9 ):
+                    #in sand/gas
+                    car.slowDown = True
+                else:
+                    car.slowDown = False
 
             
 
