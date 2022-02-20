@@ -178,6 +178,13 @@ def main():
                     car.speed=-100
                     car.accel=True
                     car.brake=False
+                for ch in range(len(checkpoints)):
+                    if car.is_colliding([checkpoints[ch]]):
+                        if car.checkpoint == ch - 1:
+                            print("checkpoint got!")
+                            if ch == len(checkpoints) - 1:
+                                ch = 0
+                            car.checkpoint = ch
                 #current Car tile
                 currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
                 if(currTile >= 1 and currTile <= 9 ):
