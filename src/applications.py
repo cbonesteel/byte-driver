@@ -12,7 +12,7 @@ def main():
     globalScale = 2
 
     #background
-    bitmap = BitMap(24,18,globalScale)
+    bitmap = BitMap(32,26,globalScale)
 
     background = bitmap.getfinalimage()
     #background = pygame.image.load("./src/imgs/background.png")
