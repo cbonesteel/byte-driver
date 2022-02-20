@@ -1,6 +1,3 @@
-from re import M
-from tkinter.tix import MAIN
-from turtle import back
 import pygame, sys
 from .objs.car import Car
 from .objs.camera import Camera
@@ -36,6 +33,48 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+
+            #--- MAIN MENU BUTTONS ---#
+            if menu_state == MenuState.MAIN_MENU:
+                if  event.type == pygame.MOUSEBUTTONDOWN:
+                    blockX = WINDOW_WIDTH / 3
+                    blockY = WINDOW_HEIGHT / 8
+
+                    x,y = pygame.mouse.get_pos()
+
+                    x = int(x / blockX)
+                    y = int(y / blockY)
+
+                    if x == 1:
+                        if y == 3:
+                            pygame.event.post(pygame.event.Event(SINGLEPLAYER_MENU, {}))
+                        elif y == 4:
+                            pygame.event.post(pygame.event.Event(MULTIPLATER_MENU, {}))
+                        elif y == 5:
+                            pygame.quit()
+                            sys.exit()
+
+            #--- TRACK SELECTION ---#
+            if menu_state == MenuState.TRACK_SELECT:
+                if  event.type == pygame.MOUSEBUTTONDOWN:
+                    blockX = WINDOW_WIDTH / 5
+                    blockY = WINDOW_HEIGHT / 8
+
+                    x,y = pygame.mouse.get_pos()
+
+                    x = int(x / blockX)
+                    y = int(y / blockY)
+
+                    if x == 1 and (y >= 2 or y <= 5):
+                        selected_track = TrackSelect.AUSTRIA
+                        menu_state = MenuState.NONE
+                        game_state = GameState.RUNNING
+                    elif x == 3 and (y >= 2 or y <= 5):
+                        selected_track = TrackSelect.SUGNOMA
+                        menu_state = MenuState.NONE
+                        game_state = GameState.RUNNING
+                    elif x == 2 and y == 6:
+                        pygame.event.post(pygame.event.Event(MAIN_MENU, {}))
             
             #--- MENU EVENT CONTROLS ---#
             if event.type == MAIN_MENU:
@@ -72,9 +111,11 @@ def main():
                     elif event.key == pygame.K_DOWN:
                         car1.brake = False
 
-        #--- MENU LOGIC ---#
+        #--- MENU DRAWING ---#
         if menu_state == MenuState.MAIN_MENU:
             draw_main(screen)
+        elif menu_state == MenuState.TRACK_SELECT:
+            draw_track_select(screen)
 
         #--- GAME LOGIC ---#
         if game_state == GameState.RUNNING:
@@ -134,9 +175,34 @@ def draw_main(screen):
     screen.blit(version,(WINDOW_WIDTH / 8 * 6, WINDOW_HEIGHT / 8 * 7))
 
 
-def draw_track_select():
-    # TODO: TRACK SELECTION
-    pass
+def draw_track_select(screen):
+    # Objects
+    background = pygame.image.load("imgs/retro-background.jpg")
+    background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+    title = pygame.image.load("imgs/track_selection_title.png")
+    title = pygame.transform.scale(title, (WINDOW_WIDTH / 2,  WINDOW_WIDTH / 2 / 3))
+    austria_layout = pygame.image.load("imgs/austria_layout.png")
+    austria_layout = pygame.transform.scale(austria_layout, (WINDOW_WIDTH / 5,  WINDOW_WIDTH / 5))
+    austria = pygame.image.load("imgs/austria.png")
+    austria = pygame.transform.scale(austria, (WINDOW_WIDTH / 5,  WINDOW_WIDTH / 5 / 3))
+    sugmona = pygame.image.load("imgs/sugnoma.png")
+    sugmona = pygame.transform.scale(sugmona, (WINDOW_WIDTH / 5,  WINDOW_WIDTH / 5 / 3))
+    sognoma_layout = pygame.image.load("imgs/sugnoma-layout.png")
+    sognoma_layout = pygame.transform.scale(sognoma_layout, (WINDOW_WIDTH / 5,  WINDOW_WIDTH / 5))
+    back = pygame.image.load("imgs/back.png")
+    back = pygame.transform.scale(back, (WINDOW_WIDTH / 5,  WINDOW_WIDTH / 5 / 3))
+    version = pygame.image.load("imgs/version.png")
+    version = pygame.transform.scale(version, (WINDOW_WIDTH / 3,  WINDOW_WIDTH / 3 / 3))
+    
+    # Place Objects
+    screen.blit(background,(0,0))
+    screen.blit(title,(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 8))
+    screen.blit(austria_layout,(WINDOW_WIDTH / 5, WINDOW_HEIGHT / 8 * 3))
+    screen.blit(sognoma_layout,(WINDOW_WIDTH / 5 * 3, WINDOW_HEIGHT / 8 * 3))
+    screen.blit(austria,(WINDOW_WIDTH / 5, WINDOW_HEIGHT / 8 * 5))
+    screen.blit(sugmona,(WINDOW_WIDTH / 5 * 3, WINDOW_HEIGHT / 8 * 5))
+    screen.blit(back,(WINDOW_WIDTH / 5 * 2, WINDOW_HEIGHT / 8 * 6))
+    screen.blit(version,(WINDOW_WIDTH / 8 * 6, WINDOW_HEIGHT / 8 * 7))
 
 def draw_multiplayer():
     # TODO: MULTIPLAYER
