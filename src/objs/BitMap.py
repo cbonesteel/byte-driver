@@ -57,40 +57,82 @@ class BitMap:
                     self.final_img.blit(grasstile_img.image, currSprite)
                 #WALL
                 elif self.map[i][j] == 2:
-                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40,currSprite[1]+40), angle=0, scale=globScale, image=self.tiles[2])
-                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
-                    mask_surface = pygame.Surface((80, 80)).convert_alpha()
+                    #wall right
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=0, scale=globScale, image=self.tiles[2])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
                     mask_surface.fill((0,0,0,0))
-                    mask_surface.fill(pygame.Color("white"), (60,0,20,80))
+                    mask_surface.fill(pygame.Color("white"), (60*globScale,0,20*globScale,80*globScale))
                     rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
                     self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 3:
-                    rightwall_img.rotate(-90)
-                    self.final_img.blit(rightwall_img.image, currSprite)
-                    rightwall_img.rotate(90)
+                    #wall bottom
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=-90, scale=globScale, image=self.tiles[2])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (0,60*globScale,80*globScale,80*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 4:
-                    rightwall_img.rotate(180)
-                    self.final_img.blit(rightwall_img.image, currSprite)
-                    rightwall_img.rotate(-180)
+                    #wall left
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=180, scale=globScale, image=self.tiles[2])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (0,0,20*globScale,80*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 5:
-                    rightwall_img.rotate(-270)
-                    self.final_img.blit(rightwall_img.image, currSprite)
-                    rightwall_img.rotate(270)
+                    #wall top
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=-270, scale=globScale, image=self.tiles[2])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (0,0,80*globScale,20*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 #CORNERS
                 elif self.map[i][j] == 6:
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
+                    #bottom right corner
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=0, scale=globScale, image=self.tiles[3])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (60*globScale,0,20*globScale,80*globScale))
+                    mask_surface.fill(pygame.Color("white"), (0,60*globScale,80*globScale,80*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 7:
-                    bottomrightcorner_img.rotate(-90)
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
-                    bottomrightcorner_img.rotate(90)
+                    #bottom left corner
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=-90, scale=globScale, image=self.tiles[3])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (0,0,20*globScale,80*globScale))
+                    mask_surface.fill(pygame.Color("white"), (0,60*globScale,80*globScale,80*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 8:
-                    bottomrightcorner_img.rotate(180)
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
-                    bottomrightcorner_img.rotate(-180)
+                    #top left corner
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=180, scale=globScale, image=self.tiles[3])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (0,0,20*globScale,80*globScale))
+                    mask_surface.fill(pygame.Color("white"), (0,0,80*globScale,20*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 elif self.map[i][j] == 9:
-                    bottomrightcorner_img.rotate(-270)
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
-                    bottomrightcorner_img.rotate(270)
+                    # top right corner
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40*globScale,currSprite[1]+40*globScale), angle=-270, scale=globScale, image=self.tiles[3])
+                    mask_surface = pygame.Surface((self.spriteWidth, self.spriteWidth)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (60*globScale,0,20*globScale,80*globScale))
+                    mask_surface.fill(pygame.Color("white"), (0,0,80*globScale,20*globScale))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
                 #VERT ROAD
                 elif self.map[i][j] == 10:
                     self.final_img.blit(vertroad_img.image, currSprite)

@@ -22,7 +22,7 @@ def main():
     camera_group = Camera(screen, background)
 
     #create one car
-    car1 = Car(100,100,0, globalScale)
+    car1 = Car(1000,1000,0, globalScale)
     camera_group.add(car1)
 
     while True:
@@ -62,6 +62,11 @@ def main():
             car1.slowDown = True
         else:
             car1.slowDown =False
+        if(car1.is_colliding(bitmap.wallGroup)):
+            car1.speed=-100
+            car1.accel = True
+            car1.brake = False
+
 
         screen.fill((0,0,0))
         camera_group.update(delta/1000)

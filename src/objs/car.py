@@ -59,10 +59,12 @@ class Car(GameObject):
                 self.speed -= self.slowDownFactor * deltaTime
             else:
                 self.speed -= 80 * deltaTime
+            
+            if self.speed < 0:
+                self.speed = 0
 
         #truncate speed
-        if self.speed < 0:
-            self.speed = 0
+        
 
         #brake bool
         if self.brake:
