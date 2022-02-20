@@ -2,19 +2,20 @@ import pygame
 from pygame.math import Vector2
 
 class GameObject(pygame.sprite.Sprite):
-    def __init__(self, pos, dimensions, angle=0, scale=1, color=(128, 128, 128), image=None):
+    def __init__(self, pos, angle=0, scale=1, dimensions=(25, 25), color=(128, 128, 128), image=None):
         """pos: Vector2, dimensions: Vector2, angle: float, scale: float, color: tuple, image:pygame.Surface"""
         super(GameObject, self).__init__()
 
         self.pos = pos
-        self.dimensions = dimensions
         self.angle = angle
         self.scale = scale
         self.color = color
 
         if image:
             self.surface = image
+            self.dimensions = Vector2(image.get_size()[0], image.get_size()[1])
         else:
+            self.dimensions = dimensions
             self.surface = pygame.Surface((dimensions.x, dimensions.y), pygame.SRCALPHA)
             self.surface.fill(self.color)
         self.update_internal()
