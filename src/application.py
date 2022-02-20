@@ -14,27 +14,11 @@ def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
 
-<<<<<<< HEAD
-    #background
-    bitmap = BitMap(32,26,globalScale)
-
-    background = bitmap.getfinalimage()
-    print(background.get_size())
-    #background = pygame.image.load("./src/imgs/background.png")
-
-    #create the sprites and groups
-    camera_group = Camera(screen, background)
-
-    #create one car
-    car1 = Car(1000,1000,0, globalScale)
-    camera_group.add(car1)
-=======
     #menu stuff
     game_init = False
     menu_state = MenuState.MAIN_MENU
     game_state = GameState.NONE
     selected_track = TrackSelect.NONE
->>>>>>> menu
 
     while True:
         delta = clock.tick(20)
@@ -47,46 +31,6 @@ def main():
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-<<<<<<< HEAD
-                    pygame.quit()
-                    sys.exit()
-                elif(event.key == pygame.K_LEFT):
-                    car1.angle_change = -5
-                elif event.key == pygame.K_RIGHT:
-                    car1.angle_change = 5
-                elif event.key == pygame.K_UP:
-                    car1.accel = True
-                elif event.key == pygame.K_DOWN:
-                    car1.brake = True
-            elif event.type == pygame.KEYUP:
-                # Stop rotating if the player releases the keys.
-                if event.key == pygame.K_RIGHT and car1.angle_change > 0:
-                    car1.angle_change = 0
-                elif event.key == pygame.K_LEFT and car1.angle_change < 0:
-                    car1.angle_change = 0
-                elif event.key == pygame.K_UP:
-                    car1.accel = False
-                elif event.key == pygame.K_DOWN:
-                    car1.brake = False
-
-        #current Car tile
-        currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
-        if(currTile >= 1 and currTile <= 9 ):
-            #in sand/gas
-            car1.slowDown = True
-        else:
-            car1.slowDown =False
-        if(car1.is_colliding(bitmap.wallGroup)):
-            car1.speed=-100
-            car1.accel = True
-            car1.brake = False
-
-
-        screen.fill((0,0,0))
-        camera_group.update(delta/1000)
-        camera_group.camera_draw(car1)
-        pygame.display.update()
-=======
                         pygame.quit()
                         sys.exit()
 
@@ -263,4 +207,3 @@ def draw_track_select(screen):
 def draw_multiplayer():
     # TODO: MULTIPLAYER
     pass
->>>>>>> menu
