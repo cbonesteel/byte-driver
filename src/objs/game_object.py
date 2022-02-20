@@ -29,7 +29,7 @@ class GameObject(pygame.sprite.Sprite):
 
     def update_internal(self):
         self.image = pygame.transform.scale(self.surface, (self.dimensions.x * self.scale, self.dimensions.y * self.scale))
-        self.image = pygame.transform.rotate(self.surface, self.angle)
+        self.image = pygame.transform.rotate(self.image, self.angle)
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos.x, self.pos.y)
         self.mask = pygame.mask.from_surface(self.image)
