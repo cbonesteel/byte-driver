@@ -44,6 +44,7 @@ class BitMap:
         #print(str(len(list(self.map[0]))) +" " + str(len(list(self.map))))
         for i in range(len(list(self.map))):
             for j in range(len(list(self.map[i]))):
+                #This is the current Sprite index that we are loading
                 currSprite =(j*self.spriteWidth, i*self.spriteWidth)
                 #NULL
                 if self.map[i][j] == 0:
