@@ -1,3 +1,4 @@
+from re import M
 from tkinter.tix import MAIN
 from turtle import back
 import pygame, sys
@@ -25,11 +26,16 @@ def main():
     while True:
         delta = clock.tick(20)
 
+        #--- EVENT HANDLER ---#
         for event in pygame.event.get():
-            #--- X to QUIT ---#
+            #--- X/ESC to QUIT ---#
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
             
             #--- MENU EVENT CONTROLS ---#
             if event.type == MAIN_MENU:
@@ -47,10 +53,7 @@ def main():
             #--- USER CONTROLS ---#
             if game_state == GameState.RUNNING:
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                    elif(event.key == pygame.K_LEFT):
+                    if event.key == pygame.K_LEFT:
                         car1.angle_change = -5
                     elif event.key == pygame.K_RIGHT:
                         car1.angle_change = 5
@@ -69,6 +72,11 @@ def main():
                     elif event.key == pygame.K_DOWN:
                         car1.brake = False
 
+        #--- MENU LOGIC ---#
+        if menu_state == MenuState.MAIN_MENU:
+            draw_main(screen)
+
+        #--- GAME LOGIC ---#
         if game_state == GameState.RUNNING:
             if game_init == False:
                 if selected_track == TrackSelect.AUSTRIA:
@@ -95,20 +103,41 @@ def main():
             else:
                 car1.slowDown = False
 
-        screen.fill((0,0,0))
+        # Screen Updating
+        #screen.fill((0,0,0))
         if game_state == GameState.RUNNING:
             camera_group.update(delta/1000)
             camera_group.camera_draw(car1)
         pygame.display.update()
 
-    def draw_main():
-        # TODO: MAIN MENU
-        pass
+def draw_main(screen):
+    # Objects
+    background = pygame.image.load("imgs/retro-background.jpg")
+    background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+    title = pygame.image.load("imgs/ByteDriver_Title.png")
+    title = pygame.transform.scale(title, (WINDOW_WIDTH / 2,  WINDOW_WIDTH / 2 / 3))
+    singleplayer = pygame.image.load("imgs/singleplayer.png")
+    singleplayer = pygame.transform.scale(singleplayer, (WINDOW_WIDTH / 3,  WINDOW_WIDTH / 3 / 3))
+    multiplayer = pygame.image.load("imgs/multiplayer.png")
+    multiplayer = pygame.transform.scale(multiplayer, (WINDOW_WIDTH / 3,  WINDOW_WIDTH / 3 / 3))
+    quit = pygame.image.load("imgs/quit.png")
+    quit = pygame.transform.scale(quit, (WINDOW_WIDTH / 3,  WINDOW_WIDTH / 3 / 3))
+    version = pygame.image.load("imgs/version.png")
+    version = pygame.transform.scale(version, (WINDOW_WIDTH / 3,  WINDOW_WIDTH / 3 / 3))
 
-    def draw_track_select():
-        # TODO: TRACK SELECTION
-        pass
+    # Place Objects
+    screen.blit(background,(0,0))
+    screen.blit(title,(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 8))
+    screen.blit(singleplayer,(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 8 * 3))
+    screen.blit(multiplayer,(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 8 * 4))
+    screen.blit(quit,(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 8 * 5))
+    screen.blit(version,(WINDOW_WIDTH / 8 * 6, WINDOW_HEIGHT / 8 * 7))
 
-    def draw_multiplayer():
-        # TODO: MULTIPLAYER
-        pass
+
+def draw_track_select():
+    # TODO: TRACK SELECTION
+    pass
+
+def draw_multiplayer():
+    # TODO: MULTIPLAYER
+    pass
