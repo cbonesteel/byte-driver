@@ -29,6 +29,7 @@ class Car(GameObject):
         self.brake = False
         self.slowDown = False
         self.slowDownFactor = 200*self.globScale
+        self.checkpoint = 0
 
         super().__init__(Vector2(pos_x, pos_y), angle=angle, scale=globScale, image=car_img)
 
