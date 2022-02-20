@@ -77,19 +77,20 @@ def main():
         if game_state == GameState.RUNNING:
             starting_pos = []
             checkpoints = []
+            angle = 0
             if game_init == False:
                 if selected_track == TrackSelect.AUSTRIA:
                     bitmap = BitMap(32,26,"bitmaps/austria.csv",GLOBALSCALE)
                     background = bitmap.getfinalimage()
                     parse = [int(a) for a in open("bitmaps/austria.cfg", 'r').read().split()]
-                    print(parse)
-                    index = 1
+                    angle = parse[1]
+                    index = 2
                     for x in range(parse[0]):
-                        x*=3
-                        starting_pos.append((parse[x+index], parse[x+index+1], parse[x+index+2]))
-                        index+=x
-                    print(starting_pos)
-                    
+                        starting_pos.append((parse[x+index], parse[x+index+1]))
+                        index+=1
+                    for x in range(parse[parse[0]*2+2]):
+                        checkpoints.append((parse[parse[0]*2+3+x*4], parse[parse[0]*2+4+x*4], parse[parse[0]*2+5+x*4], parse[parse[0]*2+6+x*4]))
+
                     
                 elif selected_track == TrackSelect.SUGNOMA:
                     bitmap = BitMap(24,30,"bitmaps/sugnoma.csv",GLOBALSCALE)
