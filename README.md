@@ -95,4 +95,6 @@ UGAHacks is a 36 hour weekend hackathon hosted by the UGAHacks team at the Unive
 <hr/>
 <small>
 Byte Driver <a href="https://bytedriver.tech">bytedriver.tech</a>
+
+Byte Driver <a href="https://github.com/cbonesteel/byte-driver/wiki">Wiki</a>
 </small>
