@@ -2,9 +2,10 @@ import pygame
 from ..utils.spritesheet import SpriteSheet
 from .game_object import GameObject
 from pygame.math import Vector2
+import math
 
 class Car(GameObject):
-    def __init__(self, pos_x, pos_y, color=0, globScale=1):
+    def __init__(self, pos_x, pos_y, color=0, globScale=1, angle=90):
         #current animation frame
         self.anim_timer = 0
         self.anim_index = 0
@@ -20,7 +21,7 @@ class Car(GameObject):
 
         #position and direction & speed
         self.angle_change = 0
-        self.direction = Vector2(0, 1) # downward vector bc thats how the sprite spawns
+        self.direction = Vector2(math.cos(math.radians(angle)), math.sin(math.radians(angle))) # downward vector bc thats how the sprite spawns
         self.speed = 0
         self.accel = False
         self.maxSpeed = 300
