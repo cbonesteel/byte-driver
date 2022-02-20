@@ -58,32 +58,32 @@ class BitMap:
                 elif self.map[i][j] == 2:
                     self.final_img.blit(rightwall_img.image, currSprite)
                 elif self.map[i][j] == 3:
-                    rightwall_img.rotate(90)
-                    self.final_img.blit(rightwall_img.image, currSprite)
                     rightwall_img.rotate(-90)
+                    self.final_img.blit(rightwall_img.image, currSprite)
+                    rightwall_img.rotate(90)
                 elif self.map[i][j] == 4:
                     rightwall_img.rotate(180)
                     self.final_img.blit(rightwall_img.image, currSprite)
                     rightwall_img.rotate(-180)
                 elif self.map[i][j] == 5:
-                    rightwall_img.rotate(270)
-                    self.final_img.blit(rightwall_img.image, currSprite)
                     rightwall_img.rotate(-270)
+                    self.final_img.blit(rightwall_img.image, currSprite)
+                    rightwall_img.rotate(270)
                 #CORNERS
                 elif self.map[i][j] == 6:
                     self.final_img.blit(bottomrightcorner_img.image, currSprite)
                 elif self.map[i][j] == 7:
-                    bottomrightcorner_img.rotate(90)
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
                     bottomrightcorner_img.rotate(-90)
+                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
+                    bottomrightcorner_img.rotate(90)
                 elif self.map[i][j] == 8:
                     bottomrightcorner_img.rotate(180)
                     self.final_img.blit(bottomrightcorner_img.image, currSprite)
                     bottomrightcorner_img.rotate(-180)
                 elif self.map[i][j] == 9:
-                    bottomrightcorner_img.rotate(270)
-                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
                     bottomrightcorner_img.rotate(-270)
+                    self.final_img.blit(bottomrightcorner_img.image, currSprite)
+                    bottomrightcorner_img.rotate(270)
                 #VERT ROAD
                 elif self.map[i][j] == 10:
                     self.final_img.blit(vertroad_img.image, currSprite)
@@ -103,9 +103,9 @@ class BitMap:
                 elif self.map[i][j] == 14:
                     self.final_img.blit(finish_img.image, currSprite)
                 elif self.map[i][j] == 15:
-                    grid_img.rotate(90)
+                    finish_img.rotate(90)
                     self.final_img.blit(finish_img.image, currSprite)
-                    grid_img.rotate(-90)
+                    finish_img.rotate(-90)
                 #TURN BOTTOM TO RIGHT
                 elif self.map[i][j] == 16:
                     self.final_img.blit(topleftturn_img.image, currSprite)
@@ -117,21 +117,21 @@ class BitMap:
                     self.final_img.blit(bottomrightturn_img.image, currSprite)
                 #TURN LEFT TO BOTTOM
                 elif self.map[i][j] == 20:
-                    bottomleftturn_img.rotate(90)
-                    self.final_img.blit(bottomleftturn_img.image, currSprite)
                     bottomleftturn_img.rotate(-90)
+                    self.final_img.blit(bottomleftturn_img.image, currSprite)
+                    bottomleftturn_img.rotate(90)
                 elif self.map[i][j] == 21:
-                    topleftturn_img.rotate(90)
-                    self.final_img.blit(topleftturn_img.image, currSprite)
                     topleftturn_img.rotate(-90)
+                    self.final_img.blit(topleftturn_img.image, currSprite)
+                    topleftturn_img.rotate(90)
                 elif self.map[i][j] == 22:
-                    bottomrightturn_img.rotate(90)
-                    self.final_img.blit(bottomrightturn_img.image, currSprite)
                     bottomrightturn_img.rotate(-90)
+                    self.final_img.blit(bottomrightturn_img.image, currSprite)
+                    bottomrightturn_img.rotate(90)
                 elif self.map[i][j] == 23:
-                    toprightturn_img.rotate(90)
-                    self.final_img.blit(toprightturn_img.image, currSprite)
                     toprightturn_img.rotate(-90)
+                    self.final_img.blit(toprightturn_img.image, currSprite)
+                    toprightturn_img.rotate(90)
                 #TURN LEFT TO TOP
                 elif self.map[i][j] == 24:
                     bottomrightturn_img.rotate(180)
@@ -151,21 +151,21 @@ class BitMap:
                     topleftturn_img.rotate(-180)
                 # TURN TOP TO RIGHT
                 elif self.map[i][j] == 28:
-                    toprightturn_img.rotate(-90)
-                    self.final_img.blit(toprightturn_img.image, currSprite)
                     toprightturn_img.rotate(90)
+                    self.final_img.blit(toprightturn_img.image, currSprite)
+                    toprightturn_img.rotate(-90)
                 elif self.map[i][j] == 29:
-                    bottomrightturn_img.rotate(-90)
-                    self.final_img.blit(bottomrightturn_img.image, currSprite)
                     bottomrightturn_img.rotate(90)
+                    self.final_img.blit(bottomrightturn_img.image, currSprite)
+                    bottomrightturn_img.rotate(-90)
                 elif self.map[i][j] == 30:
-                    topleftturn_img.rotate(-90)
-                    self.final_img.blit(topleftturn_img.image, currSprite)
                     topleftturn_img.rotate(90)
+                    self.final_img.blit(topleftturn_img.image, currSprite)
+                    topleftturn_img.rotate(-90)
                 elif self.map[i][j] == 31:
-                    bottomleftturn_img.rotate(-90)
-                    self.final_img.blit(bottomleftturn_img.image, currSprite)
                     bottomleftturn_img.rotate(90)
+                    self.final_img.blit(bottomleftturn_img.image, currSprite)
+                    bottomleftturn_img.rotate(-90)
 
     def get_at(self, index1, index2):
         return map[index1, index2]
