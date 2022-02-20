@@ -1,5 +1,6 @@
 import pygame, sys
 from .objs.car import Car
+from .objs.camera import Camera
 from .settings.options import *
 
 def main():
@@ -8,15 +9,18 @@ def main():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
 
+    #background
+    background = pygame.image.load("./imgs/background.png")
+
     #create the sprites and groups
-    moving_sprites = pygame.sprite.Group()
+    camera_group = Camera(screen, background)
 
     #create one car
-    car1 = Car(100,100,10)
-    moving_sprites.add(car1)
+    car1 = Car(100,100,0)
+    camera_group.add(car1)
 
     while True:
-        delta = clock.tick(60)
+        delta = clock.tick(20)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -27,13 +31,13 @@ def main():
                     pygame.quit()
                     sys.exit()
                 elif(event.key == pygame.K_LEFT):
-                    car1.angle_change = -3
+                    car1.angle_change = -5
                 elif event.key == pygame.K_RIGHT:
-                    car1.angle_change = 3
+                    car1.angle_change = 5
                 elif event.key == pygame.K_UP:
                     car1.accel = True
                 elif event.key == pygame.K_DOWN:
-                    car1.accel = False
+                    car1.brake = True
             elif event.type == pygame.KEYUP:
                 # Stop rotating if the player releases the keys.
                 if event.key == pygame.K_RIGHT and car1.angle_change > 0:
@@ -43,9 +47,9 @@ def main():
                 elif event.key == pygame.K_UP:
                     car1.accel = False
                 elif event.key == pygame.K_DOWN:
-                    car1.accel = True
+                    car1.brake = False
 
-        screen.fill((255,255,255))
-        moving_sprites.update()
-        moving_sprites.draw(screen)
+        screen.fill((0,0,0))
+        camera_group.update(delta/1000)
+        camera_group.camera_draw(car1)
         pygame.display.update()
