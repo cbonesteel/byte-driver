@@ -23,7 +23,7 @@ Byte Driver is a top down 8-bit racer reminiscent of the games that people our a
 * [What it does](https://github.com/cbonesteel/byte-driver#what-it-does)
 * [How we built it](https://github.com/cbonesteel/byte-driver#how-we-built-it)
 * [Challenges we ran into](https://github.com/cbonesteel/byte-driver#challenges-we-ran-into)
-* [Accomplishments that we're proud of]()
+* [Accomplishments that we're proud of](https://github.com/cbonesteel/byte-driver#accomplishments-that-were-proud-of)
 * [What we learned](https://github.com/cbonesteel/byte-driver#accomplishments-that-were-proud-of)
 * [What's next for Byte Driver](https://github.com/cbonesteel/byte-driver#whats-next-for-byte-driver)
 
