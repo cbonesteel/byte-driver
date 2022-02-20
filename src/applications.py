@@ -12,7 +12,7 @@ def main():
 
     #background
     bitmap = BitMap(6,2)
-    background = bitmap.getsurface()
+    background = bitmap.getfinalimage()
     #background = pygame.image.load("./src/imgs/background.png")
 
     #create the sprites and groups
