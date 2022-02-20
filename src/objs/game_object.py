@@ -2,6 +2,7 @@ import pygame
 from pygame.math import Vector2
 
 class GameObject(pygame.sprite.Sprite):
+    __slots__ = "pos", "angle", "scale", "dimensions", "color", "image", "surface", "rect", "mask"
     def __init__(self, pos, angle=0, scale=1, dimensions=(25, 25), color=(128, 128, 128), image=None):
         """pos: Vector2, dimensions: Vector2, angle: float, scale: float, color: tuple, image:pygame.Surface"""
         super(GameObject, self).__init__()
@@ -55,6 +56,9 @@ class GameObject(pygame.sprite.Sprite):
 
     def update(self, deltaTime):
         pass
+
+    def __repr__(self):
+        return f"GameObject(**{dict((a, getattr(self, a)) for a in GameObject.__slots__)})"
 
 if __name__ == '__main__':
     pygame.init()
