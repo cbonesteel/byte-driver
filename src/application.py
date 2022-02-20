@@ -8,6 +8,19 @@ from .utils.menu_state import *
 from .utils.game_state import *
 from .utils.track_select import *
 
+def parseConfig(path):
+    starting_pos=[]
+    checkpoints=[]
+    parse = [int(a) for a in open(path, 'r').read().split()]
+    angle = parse[1]
+    index = 2
+    for x in range(parse[0]):
+        starting_pos.append((parse[x+index], parse[x+index+1]))
+        index+=1
+    for x in range(parse[parse[0]*2+2]):
+        checkpoints.append((parse[parse[0]*2+3+x*4], parse[parse[0]*2+4+x*4], parse[parse[0]*2+5+x*4], parse[parse[0]*2+6+x*4]))
+    return angle, starting_pos, checkpoints
+
 def main():
     pygame.init()
 
@@ -93,23 +106,23 @@ def main():
             if game_state == GameState.RUNNING:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        car1.angle_change = -5
+                        cars[0].angle_change = -5
                     elif event.key == pygame.K_RIGHT:
-                        car1.angle_change = 5
+                        cars[0].angle_change = 5
                     elif event.key == pygame.K_UP:
-                        car1.accel = True
+                        cars[0].accel = True
                     elif event.key == pygame.K_DOWN:
-                        car1.brake = True
+                        cars[0].brake = True
                 if event.type == pygame.KEYUP:
                     # Stop rotating if the player releases the keys.
-                    if event.key == pygame.K_RIGHT and car1.angle_change > 0:
-                        car1.angle_change = 0
-                    elif event.key == pygame.K_LEFT and car1.angle_change < 0:
-                        car1.angle_change = 0
+                    if event.key == pygame.K_RIGHT and cars[0].angle_change > 0:
+                        cars[0].angle_change = 0
+                    elif event.key == pygame.K_LEFT and cars[0].angle_change < 0:
+                        cars[0].angle_change = 0
                     elif event.key == pygame.K_UP:
-                        car1.accel = False
+                        cars[0].accel = False
                     elif event.key == pygame.K_DOWN:
-                        car1.brake = False
+                        cars[0].brake = False
 
         #--- MENU DRAWING ---#
         if menu_state == MenuState.MAIN_MENU:
@@ -119,36 +132,55 @@ def main():
 
         #--- GAME LOGIC ---#
         if game_state == GameState.RUNNING:
+            starting_pos = []
+            checkpoints = []
+            angle = 0
             if game_init == False:
                 if selected_track == TrackSelect.AUSTRIA:
                     bitmap = BitMap(32,26,"bitmaps/austria.csv",GLOBALSCALE)
                     background = bitmap.getfinalimage()
+
+                    angle,starting_pos, checkpoints = parseConfig("bitmaps/austria.cfg")
+
                 elif selected_track == TrackSelect.SUGNOMA:
                     bitmap = BitMap(24,30,"bitmaps/sugnoma.csv",GLOBALSCALE)
                     background = bitmap.getfinalimage()
+
+                    angle,starting_pos, checkpoints = parseConfig("bitmaps/sugnoma.cfg")
                 
                 #create the sprites and groups
                 camera_group = Camera(screen, background)
 
-                #create one car
-                car1 = Car(100,100,0, GLOBALSCALE)
-                camera_group.add(car1)
+
+                #create cars
+                cars = []
+                for x in starting_pos:
+                    car = Car(x[0] * GLOBALSCALE, x[1] * GLOBALSCALE, angle=angle, globScale=GLOBALSCALE)
+                    cars.append(car)
+                camera_group.add(cars)
 
                 game_init = True
             
+        for car in cars:
+            if car.is_colliding(bitmap.wallGroup):
+                car.speed=-100
+                car.accel=True
+                car.brake=False
             #current Car tile
-            currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
+            currTile = int(bitmap.get_at(car.get_pos()[0],car.get_pos()[1]))
             if(currTile >= 1 and currTile <= 9 ):
                 #in sand/gas
-                car1.slowDown = True
+                car.slowDown = True
             else:
-                car1.slowDown = False
+                car.slowDown = False
+
+            
 
         # Screen Updating
         #screen.fill((0,0,0))
         if game_state == GameState.RUNNING:
             camera_group.update(delta/1000)
-            camera_group.camera_draw(car1)
+            camera_group.camera_draw(cars[0])
         pygame.display.update()
 
 def draw_main(screen):

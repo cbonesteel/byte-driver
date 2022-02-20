@@ -2,9 +2,10 @@ import pygame
 from ..utils.spritesheet import SpriteSheet
 from .game_object import GameObject
 from pygame.math import Vector2
+import math
 
 class Car(GameObject):
-    def __init__(self, pos_x, pos_y, color=0, globScale=1):
+    def __init__(self, pos_x, pos_y, color=0, globScale=1, angle=90):
         #current animation frame
         self.anim_timer = 0
         self.anim_index = 0
@@ -13,6 +14,7 @@ class Car(GameObject):
         car_ss = SpriteSheet("./imgs/new_car.png")
         self.sprites = []
 
+        self.globScale = globScale
         #load in all the sprites
         car_rect = (0,0,16,32)
         self.sprites = car_ss.load_strip(car_rect, 2)
@@ -20,15 +22,15 @@ class Car(GameObject):
 
         #position and direction & speed
         self.angle_change = 0
-        self.direction = Vector2(0, 1) # downward vector bc thats how the sprite spawns
+        self.direction = Vector2(math.cos(math.radians(angle-90)), math.sin(math.radians(angle-90))) # downward vector bc thats how the sprite spawns
         self.speed = 0
         self.accel = False
-        self.maxSpeed = 300
+        self.maxSpeed = 300*self.globScale
         self.brake = False
         self.slowDown = False
-        self.slowDownFactor = 200
+        self.slowDownFactor = 200*self.globScale
 
-        super().__init__(Vector2(pos_x, pos_y), angle=0, scale=globScale, image=car_img)
+        super().__init__(Vector2(pos_x, pos_y), angle=angle, scale=globScale, image=car_img)
 
     def animate(self, deltaTime):
         self.anim_timer += deltaTime
@@ -45,7 +47,7 @@ class Car(GameObject):
         #accel bool
         if self.accel:
             #increase the speed
-            self.speed += 60 * deltaTime
+            self.speed += 60 * deltaTime * self.globScale
             #slow down if we are in sand/grass
             if self.slowDown:
                 if self.speed > self.maxSpeed-self.slowDownFactor:
@@ -56,9 +58,9 @@ class Car(GameObject):
         else:
             #decrease the speed
             if self.slowDown:
-                self.speed -= self.slowDownFactor * deltaTime
+                self.speed -= self.slowDownFactor * deltaTime * self.globScale
             else:
-                self.speed -= 80 * deltaTime
+                self.speed -= 80 * deltaTime * self.globScale
             
             if self.speed < 0:
                 self.speed = 0
@@ -68,7 +70,7 @@ class Car(GameObject):
 
         #brake bool
         if self.brake:
-            self.speed -= 100 * deltaTime
+            self.speed -= 100 * deltaTime * self.globScale
             if self.speed < 0:
                 self.speed = 0
         #update the positon vector and the rect
