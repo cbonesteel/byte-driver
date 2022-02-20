@@ -1,6 +1,4 @@
 import pygame
-import csv
-import numpy as np
 from ..utils.spritesheet import SpriteSheet
 from .game_object import GameObject
 from pygame.math import Vector2
@@ -179,7 +177,8 @@ class BitMap:
                     [1,1,1]]
 
     def load_map(self):
-        self.map = np.loadtxt(open("bitmaps/austria.csv"), delimiter=",")
+        with open("bitmaps/austria.csv") as f:
+            self.map = list(map(lambda l: list(map(int, l.split(","))), f.readlines()))
 
 
     def getfinalimage(self):
