@@ -90,18 +90,22 @@ def main():
                 camera_group = Camera(screen, background)
 
                 #create one car
-                car1 = Car(100,100,0, GLOBALSCALE)
+                car1 = Car(1000,1000,0, GLOBALSCALE)
                 camera_group.add(car1)
 
                 game_init = True
             
-            #current Car tile
-            currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
-            if(currTile >= 1 and currTile <= 9 ):
-                #in sand/gas
-                car1.slowDown = True
-            else:
-                car1.slowDown = False
+        if(car1.is_colliding(bitmap.wallGroup)):
+            car1.speed=-100
+            car1.accel=True
+            car1.brake=False
+        #current Car tile
+        currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
+        if(currTile >= 1 and currTile <= 9 ):
+            #in sand/gas
+            car1.slowDown = True
+        else:
+            car1.slowDown = False
 
         # Screen Updating
         #screen.fill((0,0,0))
