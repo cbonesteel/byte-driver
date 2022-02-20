@@ -21,7 +21,7 @@ class Car(GameObject):
 
         #position and direction & speed
         self.angle_change = 0
-        self.direction = Vector2(math.cos(math.radians(angle)), math.sin(math.radians(angle))) # downward vector bc thats how the sprite spawns
+        self.direction = Vector2(math.cos(math.radians(angle+90)), math.sin(math.radians(angle+90))) # downward vector bc thats how the sprite spawns
         self.speed = 0
         self.accel = False
         self.maxSpeed = 300
@@ -29,7 +29,7 @@ class Car(GameObject):
         self.slowDown = False
         self.slowDownFactor = 200
 
-        super().__init__(Vector2(pos_x, pos_y), angle=0, scale=globScale, image=car_img)
+        super().__init__(Vector2(pos_x, pos_y), angle=angle, scale=globScale, image=car_img)
 
     def animate(self, deltaTime):
         self.anim_timer += deltaTime
