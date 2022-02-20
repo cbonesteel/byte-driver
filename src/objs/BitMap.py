@@ -39,6 +39,8 @@ class BitMap:
         bottomleftturn_img = GameObject(Vector2(0,0), angle=0, scale=globScale, image=self.tiles[13])
         bottomrightturn_img = GameObject(Vector2(0,0), angle=0, scale=globScale, image=self.tiles[14])
 
+        self.wallGroup = []
+
         # set Map
         self.load_map()
 
@@ -55,7 +57,13 @@ class BitMap:
                     self.final_img.blit(grasstile_img.image, currSprite)
                 #WALL
                 elif self.map[i][j] == 2:
-                    self.final_img.blit(rightwall_img.image, currSprite)
+                    rightWall_img_cpy = GameObject(Vector2(currSprite[0]+40,currSprite[1]+40), angle=0, scale=globScale, image=self.tiles[2])
+                    self.final_img.blit(rightWall_img_cpy.image, currSprite)
+                    mask_surface = pygame.Surface((80, 80)).convert_alpha()
+                    mask_surface.fill((0,0,0,0))
+                    mask_surface.fill(pygame.Color("white"), (60,0,20,80))
+                    rightWall_img_cpy.mask = pygame.mask.from_surface(mask_surface)
+                    self.wallGroup.append(rightWall_img_cpy)
                 elif self.map[i][j] == 3:
                     rightwall_img.rotate(-90)
                     self.final_img.blit(rightwall_img.image, currSprite)
@@ -185,3 +193,49 @@ class BitMap:
         return self.final_img
 
 
+if __name__ == "__main__":
+    pygame.init()
+    SCREEN = WIDTH, HEIGHT = 500, 500
+    win = pygame.display.set_mode(SCREEN, pygame.NOFRAME)
+
+    clock = pygame.time.Clock()
+    FPS = 60
+    count = 0
+
+    bitmap = BitMap(32,26,1)
+
+    moving_object = GameObject(Vector2(40, 40), Vector2(25, 25), 45)
+    all_objs = pygame.sprite.Group([moving_object])
+    background = bitmap.getfinalimage()
+
+    rightWall_img_cpy = GameObject(Vector2(0,0), angle=0, scale=globScale, image=self.tiles[2])
+    bitmap.final_img.blit(rightWall_img_cpy.image, currSprite)
+    rightWall_img_cpy.mask = pygame.mask.from_threshold(rightWall_img_cpy.image, color=(215, 216, 150))
+    rightWall_img_cpy.move((currSprite[0]+40, currSprite[1]+40))
+    self.wallGroup.append(rightWall_img_cpy)
+    static_objs = pygame.sprite.Group(static_objects)
+
+    running = True
+    while running:
+        dt = clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+        if moving_object.is_colliding(bitmap.wallGroup):
+            print("yes")
+
+        count += 1
+        if count % 100 == 0:
+            moving_object.rotate(20)
+            count = 0
+        pos = pygame.mouse.get_pos()
+        moving_object.set_pos(Vector2(pos[0], pos[1]))
+
+        win.fill((255,255,255))
+        all_objs.update(dt)
+        all_objs.draw(win)
+        pygame.display.update()
+    pygame.quit()
