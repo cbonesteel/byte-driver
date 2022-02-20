@@ -42,6 +42,9 @@ class GameObject(pygame.sprite.Sprite):
         self.pos.x = pos.x
         self.pos.y = pos.y
         self.update_internal()
+    
+    def get_pos(self):
+        return (self.pos.x, self.pos.y)
 
     def move(self, pos):
         self.pos += pos

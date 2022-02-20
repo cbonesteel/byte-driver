@@ -25,6 +25,8 @@ class Car(GameObject):
         self.accel = False
         self.maxSpeed = 300
         self.brake = False
+        self.slowDown = False
+        self.slowDownFactor = 200
 
         super().__init__(Vector2(pos_x, pos_y), angle=0, scale=globScale, image=car_img)
 
@@ -44,13 +46,24 @@ class Car(GameObject):
         if self.accel:
             #increase the speed
             self.speed += 60 * deltaTime
-            if self.speed > self.maxSpeed:
-                self.speed = self.maxSpeed
+            #slow down if we are in sand/grass
+            if self.slowDown:
+                if self.speed > self.maxSpeed-self.slowDownFactor:
+                    self.speed = self.maxSpeed-self.slowDownFactor
+            else:
+                if self.speed > self.maxSpeed:
+                    self.speed = self.maxSpeed
         else:
             #decrease the speed
-            self.speed -= 40 * deltaTime
-            if self.speed < 0:
-                self.speed = 0
+            if self.slowDown:
+                self.speed -= self.slowDownFactor * deltaTime
+            else:
+                self.speed -= 80 * deltaTime
+
+        #truncate speed
+        if self.speed < 0:
+            self.speed = 0
+
         #brake bool
         if self.brake:
             self.speed -= 100 * deltaTime

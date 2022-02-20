@@ -2,6 +2,7 @@ import pygame
 from ..utils.spritesheet import SpriteSheet
 from .game_object import GameObject
 from pygame.math import Vector2
+import math
 
 class BitMap:
 
@@ -165,8 +166,8 @@ class BitMap:
                     self.final_img.blit(bottomleftturn_img.image, currSprite)
                     bottomleftturn_img.rotate(-90)
 
-    def get_at(self, index1, index2):
-        return map[index1, index2]
+    def get_at(self, pos_x, pos_y):
+        return self.map[int(pos_y/self.spriteWidth)][int(pos_x/self.spriteWidth)]
 
     def map0(self):
         self.map = [[1, 10, 1],

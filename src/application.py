@@ -15,6 +15,7 @@ def main():
     bitmap = BitMap(32,26,globalScale)
 
     background = bitmap.getfinalimage()
+    print(background.get_size())
     #background = pygame.image.load("./src/imgs/background.png")
 
     #create the sprites and groups
@@ -53,6 +54,14 @@ def main():
                     car1.accel = False
                 elif event.key == pygame.K_DOWN:
                     car1.brake = False
+
+        #current Car tile
+        currTile = int(bitmap.get_at(car1.get_pos()[0],car1.get_pos()[1]))
+        if(currTile >= 1 and currTile <= 9 ):
+            #in sand/gas
+            car1.slowDown = True
+        else:
+            car1.slowDown =False
 
         screen.fill((0,0,0))
         camera_group.update(delta/1000)
