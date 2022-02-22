@@ -10,6 +10,8 @@
 
 Made at UGAHacks7.
 
+![UGAHacks Winner](https://img.shields.io/badge/UGAHacks7%20Winner-Best%20Use%20of%20Github-brightgreen)
+
 Byte Driver is a top down 8-bit racer reminiscent of the games that people our age played. If you're in the mood for some time trials or you want to race with friends, Byte Driver is the game for you!
 
 ## Table of Contents
@@ -94,7 +96,11 @@ UGAHacks is a 36 hour weekend hackathon hosted by the UGAHacks team at the Unive
 
 <hr/>
 <small>
+<p>
 Byte Driver <a href="https://bytedriver.tech">bytedriver.tech</a>
 
 Byte Driver <a href="https://github.com/cbonesteel/byte-driver/wiki">Wiki</a>
+
+UGAHacks7 <a href="https://devpost.com/software/byte-driver">Devpost</a>
+</p>
 </small>
